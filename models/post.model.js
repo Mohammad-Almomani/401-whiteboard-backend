@@ -9,11 +9,7 @@ const Post = (sequelize, DataTypes) =>
     content: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    author: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+    }
   });
 
 module.exports = Post;
