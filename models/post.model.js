@@ -10,6 +10,10 @@ const Post = (sequelize, DataTypes) =>
       type: DataTypes.STRING,
       defaultValue: false,
     },
+    author: {
+      type: DataTypes.STRING,
+      defaultValue: false,
+    },
   });
 
 module.exports = Post;
