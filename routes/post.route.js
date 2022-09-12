@@ -1,61 +1,61 @@
-'use strict';
+"use strict";
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const error500 = require("../error-handlers/500");
 
-const {Post} = require('../models/index');
+const { Post } = require("../models/index");
 
 // Routes
-router.get('/post', getPosts);
-router.get('/post/:id', getPost);
-// router.post('/food', createFood);
-// router.delete('/food/:id', deleteFood);
-// router.put('/food/:id', updateFood);
+router.get("/post", getPosts);
+router.get("/post/:id", error500, getPost);
+router.post("/post", createPost);
+router.put("/post/:id", error500, updatePost);
+router.delete("/post/:id", error500, deletePost);
 
 async function getPosts(req, res) {
   let allPosts = await Post.findAll();
   res.status(200).json({
-    allPosts
-  })
+    allPosts,
+  });
 }
 
 async function getPost(req, res) {
   const id = req.params.id;
   const post = await Post.findOne({
-    where: {id: id}
+    where: { id: id },
   });
-  res.status(200).json(Post)
+
+  res.status(200).json(post);
 }
 
-async function createFood(req, res) {
+async function createPost(req, res) {
   // console.log(req.body)
-  const newFood = req.body;
-  const food = await Food.create(newFood);
-  res.status(201).json(food);
+  const newPost = req.body;
+  const post = await Post.create(newPost);
+  // console.log(post.dataValues.id);
+  res.status(201).json(post);
 }
 
-async function deleteFood(req, res) {
-  const id = req.params.id;
-  let deletedFood = await Food.destroy({
-    where: {id: id}
-  });
-  res.status(204).json({deletedFood});
-}
-
-
-async function updateFood(req, res) {
+async function updatePost(req, res) {
   const id = req.params.id;
   const obj = req.body;
 
-  // const food = await Food.findOne({
-  //   where: {id: id}
-  // });
+  const post = await Post.findOne({
+    where: { id: id },
+  });
 
-  // const updatedFood = await food.update(obj);
+  const updatedPost = await post.update(obj);
 
-  const updatedFood = await Food.update()
+  res.status(200).json(updatedPost);
+}
 
-  res.status(200).json(updatedFood);
+async function deletePost(req, res) {
+  const id = req.params.id;
+  let deletedPost = await Post.destroy({
+    where: { id: id },
+  });
+  res.status(200).send("Post deleted successfully");
 }
 
 module.exports = router;
