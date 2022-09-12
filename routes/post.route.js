@@ -52,7 +52,7 @@ async function updatePost(req, res) {
 
 async function deletePost(req, res) {
   const id = req.params.id;
-  let deletedPost = await Post.destroy({
+  await Post.destroy({
     where: { id: id },
   });
   res.status(200).send("Post deleted successfully");
