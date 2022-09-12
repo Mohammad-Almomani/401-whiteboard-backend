@@ -8,11 +8,11 @@ const Post = (sequelize, DataTypes) =>
     },
     content: {
       type: DataTypes.STRING,
-      defaultValue: false,
+      allowNull: false,
     },
     author: {
       type: DataTypes.STRING,
-      defaultValue: false,
+      allowNull: true,
     },
   });
 
