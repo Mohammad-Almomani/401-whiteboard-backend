@@ -7,9 +7,7 @@ module.exports = async (req, res, next) => {
   let id = req.params.id;
   if (isNaN(id)) id = -1;
 
-  const post = await Post.findOne({
-    where: { id: id },
-  });
+  const post = await Post.read(id);
 
   if (!post) {
     res.status(500).send({
