@@ -26,13 +26,13 @@ describe("Verify post post routs", () => {
     id = response._body.id;
   });
 
-  it("test update post, should respond with 200 status code", async () => {
+  it("test update post, should respond with 202 status code", async () => {
     console.log(id);
     const response = await request.put(`/post/${id}`).send({
       title: "new title from update post put",
       content: "new content",
     });
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(202);
   });
 
   it("test update post, should respond with 500 status code", async () => {
@@ -62,9 +62,9 @@ describe("Verify post get routs", () => {
 });
 
 describe("Verify post delete routs", () => {
-  it("test delete post, should respond with 200 status code", async () => {
+  it("test delete post, should respond with 204 status code", async () => {
     const response = await request.delete(`/post/${id}`);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
   });
 
   it("test delete post, should respond with 500 status code", async () => {

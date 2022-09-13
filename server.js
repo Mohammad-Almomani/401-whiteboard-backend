@@ -6,10 +6,12 @@ const app = express();
 const error404 = require("./error-handlers/404");
 
 const postRouts = require("./routes/post.route");
+const commentRouts = require("./routes/comment.route");
 
 app.use(cors());
 app.use(express.json());
 app.use(postRouts);
+app.use(commentRouts);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello World");
