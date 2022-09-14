@@ -1,4 +1,5 @@
 const express = require("express");
+/*eslint-disable*/
 const router = express.Router();
 const error500 = require("../error-handlers/500");
 
@@ -29,8 +30,10 @@ async function createComment(req, res) {
   // console.log(req.body)
   const newComment = req.body;
   const comment = await Comment.create(newComment);
+  // console.log(comment.postID);
+  const postComments = await Comment.readComments(comment.postID);
   // console.log(post.dataValues.id);
-  res.status(201).json(comment);
+  res.status(201).json(postComments);
 }
 
 async function updateComment(req, res) {
