@@ -7,28 +7,28 @@ const error500 = require("../error-handlers/500");
 const { Post, commentModel } = require("../models/index");
 
 // Routes
-router.get("/post", getPosts);
-router.get("/post/:id", error500, getPost);
-router.get("/fullPost",error500, postsWithComments);
-router.get("/fullPost/:id",error500, onePostWithComments);
+router.get("/post", postsWithComments);
+router.get("/post/:id", error500, onePostWithComments);
+// router.get("/fullPost",error500, postsWithComments);
+// router.get("/fullPost/:id",error500, onePostWithComments);
 
 router.post("/post", createPost);
 router.put("/post/:id", error500, updatePost);
 router.delete("/post/:id", error500, deletePost);
 
-async function getPosts(req, res) {
-  let allPosts = await Post.read();
-  res.status(200).json({
-    allPosts,
-  });
-}
+// async function getPosts(req, res) {
+//   let allPosts = await Post.read();
+//   res.status(200).json({
+//     allPosts,
+//   });
+// }
 
-async function getPost(req, res) {
-  const id = req.params.id;
-  const post = await Post.read(id);
+// async function getPost(req, res) {
+//   const id = req.params.id;
+//   const post = await Post.read(id);
 
-  res.status(200).json(post);
-}
+//   res.status(200).json(post);
+// }
 
 async function createPost(req, res) {
   // console.log(req.body)

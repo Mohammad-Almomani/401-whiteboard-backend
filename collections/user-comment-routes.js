@@ -27,6 +27,19 @@ class postCommentsRoutes {
     }
   }
 
+  async readComments(id) {
+    try {
+      if (id) {
+        return await this.model.findAll({ where: { postID: id } });
+      } else {
+        return await this.model.findAll();
+      }
+    } catch (e) {
+      /* istanbul ignore next */
+      return `Error in reading data with the id: ${id}`;
+    }
+  }
+
   async update(id, obj) {
     try {
       const dataById = await this.model.findOne({ where: { id } });
