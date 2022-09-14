@@ -10,7 +10,7 @@ class postCommentsRoutes {
     try {
       return await this.model.create(obj);
     } catch (e) {
-      console.error(`Error while creating the data for model ${this.model.name}`);
+      return `Error while creating the data for model ${this.model.name}`;
     }
   }
 
@@ -22,7 +22,8 @@ class postCommentsRoutes {
         return await this.model.findAll();
       }
     } catch (e) {
-      console.error(`Error in reading data with the id: ${id}`);
+      /* istanbul ignore next */
+      return `Error in reading data with the id: ${id}`;
     }
   }
 
@@ -31,6 +32,7 @@ class postCommentsRoutes {
       const dataById = await this.model.findOne({ where: { id } });
       return await dataById.update(obj);
     } catch (e) {
+      /* istanbul ignore next */
       console.error(`Error while updating data with id: ${id}`);
     }
   }
@@ -39,14 +41,24 @@ class postCommentsRoutes {
     try {
       return await this.model.destroy({ where: { id } });
     } catch (e) {
+      /* istanbul ignore next */
       console.error(`Error while deleting the data with id: ${id}`);
     }
   }
 
-  async readWithComments(Comments) {
+  async readWithComments(Comments, id) {
     try {
-      return await this.model.findAll({ include: [Comments] });
+      if (id) {
+        return await this.model.findOne({
+          include: [Comments],
+          where: { id: id },
+        });
+      } else {
+        console.log("No id provided");
+        return await this.model.findAll({ include: [Comments] });
+      }
     } catch (e) {
+      /* istanbul ignore next */
       console.error(
         `Error while reading the Comments for model ${this.model.name}`
       );

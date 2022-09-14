@@ -9,7 +9,9 @@ const { Post, commentModel } = require("../models/index");
 // Routes
 router.get("/post", getPosts);
 router.get("/post/:id", error500, getPost);
-router.get("/fullPost", postWithComments);
+router.get("/fullPost",error500, postsWithComments);
+router.get("/fullPost/:id",error500, onePostWithComments);
+
 router.post("/post", createPost);
 router.put("/post/:id", error500, updatePost);
 router.delete("/post/:id", error500, deletePost);
@@ -50,8 +52,14 @@ async function deletePost(req, res) {
   res.status(204).send("Post deleted successfully");
 }
 
-async function postWithComments(req, res) {
+async function postsWithComments(req, res) {
   const fullPost = await Post.readWithComments(commentModel);
+  res.status(200).json(fullPost);
+}
+
+async function onePostWithComments(req, res) {
+  const id = req.params.id;
+  const fullPost = await Post.readWithComments(commentModel, id);
   res.status(200).json(fullPost);
 }
 
