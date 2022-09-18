@@ -3,10 +3,12 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const post = require("./post.model");
 const comment = require("./comment.model");
+const user = require("./user.model");
+
 const Collection = require("../collections/user-comment-routes");
 
 const POSTGRES_URL =
-  process.env.DATABASE_URL || "postgresql://postgres:1312@localhost:5432/post";
+  process.env.DATABASE_URL || "postgresql://postgres:1312@localhost:5432/postgres";
 
 const sequelizeOption = {
   dialectOptions: {
@@ -20,6 +22,8 @@ const sequelizeOption = {
 const sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
 const postModel = post(sequelize, DataTypes);
 const commentModel = comment(sequelize, DataTypes);
+const userModel = user(sequelize, DataTypes);
+
 
 // Relations:
 // Post has many Comments, Comment belongs to Post.
@@ -38,6 +42,7 @@ module.exports = {
   Post: postCollection,
   Comment: commentsCollection,
   commentModel: commentModel,
+  Users: userModel
 };
 
 // process.env.DATABASE_URL || "postgresql://postgres:1312@localhost:5432/post";

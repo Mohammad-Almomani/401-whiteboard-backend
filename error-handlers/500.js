@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
   // const comment = await Comment.read(id);
 
   if (!rout) {
-    res.status(500).send({
+    return res.status(500).send({
       code: 500,
       message: isNaN(req.params.id)
         ? `${req.params.id} is not a valid ID`
