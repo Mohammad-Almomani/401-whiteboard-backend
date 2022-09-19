@@ -130,7 +130,7 @@ describe("Verify user routs", () => {
 
   it("test login, should respond with 200 status code", async () => {
     const data = {
-      username: "testUser",
+      username: "testUser2",
       password: "testPassword",
     };
 

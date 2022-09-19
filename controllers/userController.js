@@ -63,6 +63,15 @@ const allUser = async (req, res) => {
   return res.json(users);
 };
 
+const getUser = async (req, res) => {
+  const id = req.params.id;
+  const user = await Users.findOne({
+    where: {
+      id: id,
+    },
+  });
+  return res.status(200).json(user);
+};
 const deleteUser = async (req, res) => {
   const { id } = req.params;
   await Users.destroy({ where: { id: id } });
@@ -74,4 +83,5 @@ module.exports = {
   allUser,
   login,
   deleteUser,
+  getUser,
 };
