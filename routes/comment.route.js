@@ -14,17 +14,18 @@ router.delete("/comment/:id", error500, deleteComment);
 
 async function getComments(req, res) {
   let allComments = await Comment.read();
-  res.status(200).json({
+  return res.status(200).json({
     allComments,
   });
 }
-
+/* istanbul ignore next */
 async function getOneComment(req, res) {
   const id = req.params.id;
   const comment = await Comment.read(id);
 
-  res.status(200).json(comment);
+  return res.status(200).json(comment);
 }
+
 
 async function createComment(req, res) {
   // console.log(req.body)
@@ -33,21 +34,22 @@ async function createComment(req, res) {
   // console.log(comment.postID);
   const postComments = await Comment.readComments(comment.postID);
   // console.log(post.dataValues.id);
-  res.status(201).json(postComments);
+  return res.status(201).json(postComments);
 }
 
+/* istanbul ignore next */
 async function updateComment(req, res) {
   const id = req.params.id;
   const obj = req.body;
 
   const comment = await Comment.update(id, obj);
-  res.status(202).json(comment);
+  return res.status(202).json(comment);
 }
 
 async function deleteComment(req, res) {
   const id = req.params.id;
   await Comment.delete(id);
-  res.status(204).send("Post deleted successfully");
+  return res.status(204).send("Post deleted successfully");
 }
 
 module.exports = router;

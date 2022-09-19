@@ -7,11 +7,13 @@ const error404 = require("./error-handlers/404");
 
 const postRouts = require("./routes/post.route");
 const commentRouts = require("./routes/comment.route");
+const userRouts = require("./routes/user.route");
 
 app.use(cors());
 app.use(express.json());
 app.use(postRouts);
 app.use(commentRouts);
+app.use(userRouts);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello World");
