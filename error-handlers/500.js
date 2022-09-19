@@ -1,6 +1,6 @@
 "use strict";
 
-const { Post, Comment } = require("../models/index");
+const { Post, Comment, Users } = require("../models/index");
 
 /*eslint-disable no-unused-vars*/
 module.exports = async (req, res, next) => {
@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
   if (isNaN(id)) id = -1;
 
   let rout;
-  routCheck.includes("post") ? rout=await Post.read(id) : rout=await Comment.read(id);
+  routCheck.includes("post") ? rout=await Post.read(id) : routCheck.includes("user")? rout=await Users.findOne({where: {id : id}}): rout=await Comment.read(id);
   // const post = await Post.read(id);
   // const comment = await Comment.read(id);
 
@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
       code: 500,
       message: isNaN(req.params.id)
         ? `${req.params.id} is not a valid ID`
-        : `${routCheck.includes("post") ? "Post": "Comment"} ${req.params.id} not found`,
+        : `${routCheck.includes("post") ? "Post": routCheck.includes("user")? "user":"Comment"} ${req.params.id} not found`,
     });
   } else next();
 };
