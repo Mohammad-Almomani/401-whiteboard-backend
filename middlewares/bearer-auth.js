@@ -1,7 +1,7 @@
 "use strict";
 
 const { Users } = require("../models");
-
+/* istanbul ignore next */
 const bearerCheck = async (req, res, next) => {
   if (!req.headers.authorization) return res.send("Invalid Login");
   console.log("Bearer middleware");

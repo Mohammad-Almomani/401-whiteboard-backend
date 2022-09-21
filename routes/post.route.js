@@ -30,7 +30,7 @@ router.delete("/post/:id", error500, deletePost);
 
 //   res.status(200).json(post);
 // }
-
+/* istanbul ignore next */
 async function createPost(req, res) {
   // console.log(req.body)
   const newPost = req.body;
@@ -38,7 +38,7 @@ async function createPost(req, res) {
   // console.log(post.dataValues.id);
   return res.status(201).json(post);
 }
-
+/* istanbul ignore next */
 async function updatePost(req, res) {
   const id = req.params.id;
   const obj = req.body;

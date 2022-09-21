@@ -1,6 +1,6 @@
 "use strict";
 const jwt = require("jsonwebtoken");
-
+/* istanbul ignore next */
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define("postUsers", {
     username: {

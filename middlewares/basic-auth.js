@@ -1,7 +1,7 @@
 "use strict";
 
 const { Users } = require("../models");
-
+/* istanbul ignore next */
 const checkUser = async (req, res, next) => {
   try {
     // Search for the email in the database

@@ -24,7 +24,7 @@ async function getComments(req, res) {
 async function getUserOnPostComments(req, res) {
   const postID = req.params.postID;
   const userID = req.params.userID;
-  const comment = await Comment.readSpecificComment(postID, userID );
+  const comment = await Comment.readSpecificComment(postID, userID);
 
   return res.status(200).json(comment);
 }
@@ -35,12 +35,12 @@ async function getUserOnPostComments(req, res) {
 //   return res.status(200).json(comment);
 // }
 
-
+/* istanbul ignore next */
 async function createComment(req, res) {
   const newComment = req.body;
-  console.log("newwww hereeeeeeeeee",newComment);
+  console.log("newwww hereeeeeeeeee", newComment);
   const comment = await Comment.create(newComment);
-  console.log("here check",comment);
+  console.log("here check", comment);
   const postComments = await Comment.readComments(comment.id);
   return res.status(201).json(postComments);
 }
@@ -53,7 +53,7 @@ async function updateComment(req, res) {
   const comment = await Comment.update(id, obj);
   return res.status(202).json(comment);
 }
-
+/* istanbul ignore next */
 async function deleteComment(req, res) {
   const id = req.params.id;
   await Comment.delete(id);
