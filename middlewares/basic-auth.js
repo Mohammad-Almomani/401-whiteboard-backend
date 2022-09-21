@@ -28,6 +28,7 @@ const checkUser = async (req, res, next) => {
 
     next();
   } catch (e) {
+    res.status(500).send("Internal Server Error");
     console.log(e);
   }
 };

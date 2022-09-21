@@ -3,11 +3,12 @@
 const express = require("express");
 const router = express.Router();
 const error500 = require("../error-handlers/500");
+const bearerCheck = require("../middlewares/bearer-auth");
 
 const { Post, commentModel } = require("../models/index");
 
 // Routes
-router.get("/post", postsWithComments);
+router.get("/post", bearerCheck, postsWithComments);
 router.get("/post/:id", error500, onePostWithComments);
 // router.get("/fullPost",error500, postsWithComments);
 // router.get("/fullPost/:id",error500, onePostWithComments);

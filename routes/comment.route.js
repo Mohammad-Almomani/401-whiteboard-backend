@@ -7,7 +7,9 @@ const { Comment } = require("../models/index");
 
 // Routes
 router.get("/comment", getComments);
-router.get("/comment/:id", error500, getOneComment);
+router.get("/comment/:postID/:userID", error500, getUserOnPostComments);
+// router.get("/comment/:postID", error500, getPostComments);
+
 router.post("/comment", createComment);
 router.put("/comment/:id", error500, updateComment);
 router.delete("/comment/:id", error500, deleteComment);
@@ -19,12 +21,19 @@ async function getComments(req, res) {
   });
 }
 /* istanbul ignore next */
-async function getOneComment(req, res) {
-  const id = req.params.id;
-  const comment = await Comment.read(id);
+async function getUserOnPostComments(req, res) {
+  const postID = req.params.postID;
+  const userID = req.params.userID;
+  const comment = await Comment.readSpecificComment(postID, userID );
 
   return res.status(200).json(comment);
 }
+// async function getPostComments(req, res) {
+//   const postID = req.params.postID;
+//   const comment = await Comment.readComments(postID );
+
+//   return res.status(200).json(comment);
+// }
 
 
 async function createComment(req, res) {
