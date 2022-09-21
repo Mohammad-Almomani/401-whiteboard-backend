@@ -37,12 +37,11 @@ async function getUserOnPostComments(req, res) {
 
 
 async function createComment(req, res) {
-  // console.log(req.body)
   const newComment = req.body;
+  console.log("newwww hereeeeeeeeee",newComment);
   const comment = await Comment.create(newComment);
-  // console.log(comment.postID);
-  const postComments = await Comment.readComments(comment.postID);
-  // console.log(post.dataValues.id);
+  console.log("here check",comment);
+  const postComments = await Comment.readComments(comment.id);
   return res.status(201).json(postComments);
 }
 
