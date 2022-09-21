@@ -1,7 +1,7 @@
 "use strict";
 
 const express = require("express");
-const checkUser = require("../middlewares/checkUserAuth");
+const checkUser = require("../middlewares/basic-auth");
 const error500 = require("../error-handlers/500");
 
 const router = express.Router();

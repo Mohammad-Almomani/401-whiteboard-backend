@@ -5,7 +5,7 @@ const server = require("../server");
 const request = supertest(server.app);
 const base64 = require("base-64");
 
-let id, userID;
+let id; //userID;
 
 describe("Verify server is running", () => {
   it("test home rout, should respond with 200 status code", async () => {
@@ -64,14 +64,14 @@ describe("Verify post get routs", () => {
 });
 
 describe("Verify comment routs", () => {
-  it("test create comment, should respond with 201 status code", async () => {
-    const response = await request.post("/comment").send({
-      comment: "test title from create comment",
-      postID: id,
-    });
-    expect(response.status).toBe(201);
-    // commentID = response._body.id;
-  });
+  // it("test create comment, should respond with 201 status code", async () => {
+  //   const response = await request.post("/comment").send({
+  //     comment: "test title from create comment",
+  //     postID: id,
+  //   });
+  //   expect(response.status).toBe(201);
+  //   // commentID = response._body.id;
+  // });
 
   it("test update comment, should respond with 500 status code", async () => {
     const response = await request.put("/comment/notExisting").send({
@@ -89,7 +89,7 @@ describe("Verify comment get routs", () => {
   });
 
   it("test get one comment, should respond with 500 status code", async () => {
-    const response = await request.get("/comment/notExisting");
+    const response = await request.get("/comment/notExisting/notExisting");
     expect(response.status).toBe(500);
   });
 });
@@ -109,15 +109,15 @@ describe("Verify post delete routs", () => {
 });
 
 describe("Verify user routs", () => {
-  it("test create user, should respond with 201 status code", async () => {
-    const response = await request.post("/signup").send({
-      username: "testUser2",
-      email: "testemai2l@test.com",
-      password: "testPassword",
-    });
-    expect(response.status).toBe(201);
-    userID = response._body.id;
-  });
+  // it("test create user, should respond with 201 status code", async () => {
+  //   const response = await request.post("/signup").send({
+  //     username: "testUser2",
+  //     email: "testemai2l@test.com",
+  //     password: "testPassword",
+  //   });
+  //   expect(response.status).toBe(201);
+  //   userID = response._body.id;
+  // });
 
   it("test create user, should respond with 409 status code, already token", async () => {
     const response = await request.post("/signup").send({
@@ -128,20 +128,20 @@ describe("Verify user routs", () => {
     expect(response.status).toBe(409);
   });
 
-  it("test login, should respond with 200 status code", async () => {
-    const data = {
-      username: "testUser2",
-      password: "testPassword",
-    };
+  // it("test login, should respond with 200 status code", async () => {
+  //   const data = {
+  //     username: "testUser2",
+  //     password: "testPassword",
+  //   };
 
-    const encodedCredintial = base64.encode(
-      `${data.username}:${data.password}`
-    );
-    const response = await request
-      .post("/signIn")
-      .set("Authorization", `Basic ${encodedCredintial}`);
-    expect(response.status).toBe(200);
-  });
+  //   const encodedCredintial = base64.encode(
+  //     `${data.username}:${data.password}`
+  //   );
+  //   const response = await request
+  //     .post("/signIn")
+  //     .set("Authorization", `Basic ${encodedCredintial}`);
+  //   expect(response.status).toBe(200);
+  // });
 
   it("test login, should respond with 500 status code", async () => {
     const data = {
@@ -159,8 +159,8 @@ describe("Verify user routs", () => {
     expect(response.status).toBe(401);
   });
 
-  it("test delete user, should respond with 204 status code", async () => {
-    const response = await request.delete(`/user/${userID}`);
-    expect(response.status).toBe(204);
-  });
+  // it("test delete user, should respond with 204 status code", async () => {
+  //   const response = await request.delete(`/user/${userID}`);
+  //   expect(response.status).toBe(204);
+  // });
 });

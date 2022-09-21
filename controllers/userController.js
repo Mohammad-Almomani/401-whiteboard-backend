@@ -2,7 +2,7 @@
 const bcrypt = require("bcrypt");
 const base64 = require("base-64");
 
-const { Users } = require("../models/index");
+const { Users, commentModel } = require("../models/index");
 
 const signup = async (req, res) => {
   try {
@@ -45,7 +45,12 @@ const login = async (req, res) => {
       const isAuthorized = await bcrypt.compare(password, user.password);
 
       if (isAuthorized) {
-        return res.status(200).json(user);
+        return res
+          .status(200)
+          .json({
+            user: { _id: user.id, username: user.username },
+            token: user.token,
+          });
       } else {
         return res.status(401).send("Please Check Your Username and Password");
       }
@@ -59,16 +64,15 @@ const login = async (req, res) => {
 };
 
 const allUser = async (req, res) => {
-  const users = await Users.findAll();
+  const users = await Users.findAll({ include: [commentModel] });
   return res.json(users);
 };
 
 const getUser = async (req, res) => {
   const id = req.params.id;
   const user = await Users.findOne({
-    where: {
-      id: id,
-    },
+    include: [commentModel],
+    where: { id: id },
   });
   return res.status(200).json(user);
 };

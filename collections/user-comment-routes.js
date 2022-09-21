@@ -27,10 +27,19 @@ class postCommentsRoutes {
     }
   }
 
+  async readSpecificComment(postID, userID) {
+    try {
+      return await this.model.findAll({ where: { postID: postID, userID: userID } });
+    } catch (e) {
+      /* istanbul ignore next */
+      return `Error in reading data with the id: ${postID} and ${userID}`;
+    }
+  }
+
   async readComments(id) {
     try {
       if (id) {
-        return await this.model.findAll({ where: { postID: id } });
+        return await this.model.findAll({ where: { id: id } });
       } else {
         return await this.model.findAll();
       }
