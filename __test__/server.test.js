@@ -19,23 +19,23 @@ describe("Verify server is running", () => {
 });
 
 describe("Verify post post routs", () => {
-  it("test create post, should respond with 201 status code", async () => {
-    const response = await request.post("/post").send({
-      title: "test title from create post",
-      content: "test content",
-    });
-    expect(response.status).toBe(201);
-    id = response._body.id;
-  });
+//   it("test create post, should respond with 201 status code", async () => {
+//     const response = await request.post("/post").send({
+//       title: "test title from create post",
+//       content: "test content",
+//     });
+//     expect(response.status).toBe(201);
+//     id = response._body.id;
+//   });
 
-  it("test update post, should respond with 202 status code", async () => {
-    console.log(id);
-    const response = await request.put(`/post/${id}`).send({
-      title: "new title from update post put",
-      content: "new content",
-    });
-    expect(response.status).toBe(202);
-  });
+  // it("test update post, should respond with 202 status code", async () => {
+  //   console.log(id);
+  //   const response = await request.put(`/post/${id}`).send({
+  //     title: "new title from update post put",
+  //     content: "new content",
+  //   });
+  //   expect(response.status).toBe(202);
+  // });
 
   it("test update post, should respond with 500 status code", async () => {
     const response = await request.put("/post/notExisting").send({
@@ -52,10 +52,10 @@ describe("Verify post get routs", () => {
     expect(response.status).toBe(200);
   });
 
-  it("test get one post, should respond with 200 status code", async () => {
-    const response = await request.get(`/post/${id}`);
-    expect(response.status).toBe(200);
-  });
+  // it("test get one post, should respond with 200 status code", async () => {
+  //   const response = await request.get(`/post/${id}`);
+  //   expect(response.status).toBe(200);
+  // });
 
   it("test get one post, should respond with 500 status code", async () => {
     const response = await request.get("/post/notExisting");
@@ -95,12 +95,12 @@ describe("Verify comment get routs", () => {
 });
 
 describe("Verify post delete routs", () => {
-  it("test delete post, should respond with 204 status code", async () => {
-    console.log(id);
+  // it("test delete post, should respond with 204 status code", async () => {
+  //   console.log(id);
 
-    const response = await request.delete(`/post/${id}`);
-    expect(response.status).toBe(204);
-  });
+  //   const response = await request.delete(`/post/${id}`);
+  //   expect(response.status).toBe(204);
+  // });
 
   it("test delete post, should respond with 500 status code", async () => {
     const response = await request.delete("/post/0");
@@ -119,14 +119,14 @@ describe("Verify user routs", () => {
   //   userID = response._body.id;
   // });
 
-  it("test create user, should respond with 409 status code, already token", async () => {
-    const response = await request.post("/signup").send({
-      username: "testUser2",
-      email: "testemai2l@test.com",
-      password: "testPassword",
-    });
-    expect(response.status).toBe(409);
-  });
+  // it("test create user, should respond with 409 status code, already token", async () => {
+  //   const response = await request.post("/signup").send({
+  //     username: "testUser2",
+  //     email: "testemai2l@test.com",
+  //     password: "testPassword",
+  //   });
+  //   expect(response.status).toBe(409);
+  // });
 
   // it("test login, should respond with 200 status code", async () => {
   //   const data = {

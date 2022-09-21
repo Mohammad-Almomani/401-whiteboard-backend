@@ -7,6 +7,7 @@ class postCommentsRoutes {
 
   // CRUD operations, create, read, update, delete, so we don't have to write them again and again
   async create(obj) {
+    /* istanbul ignore next */
     try {
       return await this.model.create(obj);
     } catch (e) {
@@ -22,14 +23,15 @@ class postCommentsRoutes {
         return await this.model.findAll();
       }
     } catch (e) {
-      /* istanbul ignore next */
       return `Error in reading data with the id: ${id}`;
     }
   }
-
+  /* istanbul ignore next */
   async readSpecificComment(postID, userID) {
     try {
-      return await this.model.findAll({ where: { postID: postID, userID: userID } });
+      return await this.model.findAll({
+        where: { postID: postID, userID: userID },
+      });
     } catch (e) {
       /* istanbul ignore next */
       return `Error in reading data with the id: ${postID} and ${userID}`;
@@ -48,7 +50,7 @@ class postCommentsRoutes {
       return `Error in reading data with the id: ${id}`;
     }
   }
-
+  /* istanbul ignore next */
   async update(id, obj) {
     try {
       const dataById = await this.model.findOne({ where: { id } });
@@ -67,7 +69,7 @@ class postCommentsRoutes {
       console.error(`Error while deleting the data with id: ${id}`);
     }
   }
-
+  /* istanbul ignore next */
   async readWithComments(Comments, id) {
     try {
       if (id) {
