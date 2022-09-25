@@ -24,6 +24,7 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   try {
     if (!req.headers.authorization) return res.status(401).send("Bad Request");
+    console.log(req.headers.authorization);
     const encodedHeader = req.headers.authorization.split(" ").pop();
     const [email, password] = base64.decode(encodedHeader).split(":");
     console.log(email, password);

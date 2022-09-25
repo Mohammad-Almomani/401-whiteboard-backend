@@ -41,7 +41,7 @@ const checkCreatePost = async (req, res, next) => {
 
 const checkUpdatePost = async (req, res, next) => {
   try {
-    if (req.user.capabilities.includes("update")) {
+    if (req.user.capabilities.includes("update") || req.user.username === req.body.username) {
       next();
     } else {
       res.status(403).send("You are not authorized to create to a update post");
@@ -54,7 +54,7 @@ const checkUpdatePost = async (req, res, next) => {
 
 const checkDeletePost = async (req, res, next) => {
   try {
-    if (req.user.capabilities.includes("delete")) {
+    if (req.user.capabilities.includes("delete") || req.user.username === req.body.username) {
       next();
     } else {
       res.status(403).send("You are not authorized to create to delete a post");

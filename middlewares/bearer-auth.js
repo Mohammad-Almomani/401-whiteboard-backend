@@ -14,6 +14,7 @@ const bearerCheck = async (req, res, next) => {
     });
     if (userInfo) {
       req.user = userInfo;
+      req.body.username = userInfo.username;
       req.token = userInfo.token;
 
       next();
