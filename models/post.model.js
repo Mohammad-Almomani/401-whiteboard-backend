@@ -1,7 +1,7 @@
 "use strict";
 
 const Post = (sequelize, DataTypes) =>
-  sequelize.define("newPostSchema", {
+  sequelize.define("newPostWithURL", {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
