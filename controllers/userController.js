@@ -6,11 +6,12 @@ const { Users, commentModel } = require("../models/index");
 
 const signup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
     const data = {
       username: username,
       email: email,
       password: await bcrypt.hash(password, 10),
+      role: role,
     };
     const newUser = await Users.create(data);
     res.status(201).json(newUser);
@@ -50,6 +51,7 @@ const login = async (req, res) => {
           .json({
             user: { _id: user.id, username: user.username },
             token: user.token,
+            role: user.role,
           });
       } else {
         return res.status(401).send("Please Check Your Username and Password");

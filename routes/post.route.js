@@ -3,19 +3,26 @@
 const express = require("express");
 const router = express.Router();
 const error500 = require("../error-handlers/500");
+const {
+  checkGetPost,
+  checkCreatePost,
+  checkDeletePost,
+  checkUpdatePost,
+  checkGetOnePost
+} = require("../middlewares/acl");
 const bearerCheck = require("../middlewares/bearer-auth");
 
 const { Post, commentModel } = require("../models/index");
 
 // Routes
-router.get("/post", bearerCheck, postsWithComments);
-router.get("/post/:id", error500, onePostWithComments);
+router.get("/post", bearerCheck, checkGetPost, postsWithComments);
+router.get("/post/:id", error500,bearerCheck, checkGetOnePost, onePostWithComments);
 // router.get("/fullPost",error500, postsWithComments);
 // router.get("/fullPost/:id",error500, onePostWithComments);
 
-router.post("/post", createPost);
-router.put("/post/:id", error500, updatePost);
-router.delete("/post/:id", error500, deletePost);
+router.post("/post", bearerCheck, checkCreatePost, createPost);
+router.put("/post/:id", error500, bearerCheck, checkUpdatePost, updatePost);
+router.delete("/post/:id", error500, bearerCheck, checkDeletePost, deletePost);
 
 // async function getPosts(req, res) {
 //   let allPosts = await Post.read();
