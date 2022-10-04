@@ -49,7 +49,7 @@ describe("Verify post post routs", () => {
 describe("Verify post get routs", () => {
   it("test get all posts, should respond with 200 status code", async () => {
     const response = await request.get("/post");
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(401);
   });
 
   // it("test get one post, should respond with 200 status code", async () => {
