@@ -49,11 +49,7 @@ const login = async (req, res) => {
       if (isAuthorized) {
         return res
           .status(200)
-          .json({
-            user: { _id: user.id, username: user.username },
-            token: user.token,
-            role: user.role,
-          });
+          .json(user);
       } else {
         return res.status(401).send("Please Check Your Username and Password");
       }
@@ -65,6 +61,7 @@ const login = async (req, res) => {
     console.log(error);
   }
 };
+
 
 const allUser = async (req, res) => {
   const users = await Users.findAll({ include: [commentModel] });
@@ -85,10 +82,27 @@ const deleteUser = async (req, res) => {
   return res.status(204).send("deleted");
 };
 
+
+const getProfile = async (req, res) => {
+  console.log(req.url);
+  try {
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhre");
+    const user = await Users.findOne({
+      where: {
+        id: req.user.id,
+      },
+    });
+    res.status(200).json(user);
+  } catch (error) {
+    /* istanbul ignore next */
+    console.log(error);
+  }
+};
 module.exports = {
   signup,
   allUser,
   login,
   deleteUser,
   getUser,
+  getProfile: getProfile,
 };

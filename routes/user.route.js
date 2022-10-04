@@ -11,9 +11,12 @@ const {
   login,
   deleteUser,
   getUser,
+  getProfile
 } = require("../controllers/userController");
+const bearerCheck = require("../middlewares/bearer-auth");
 
 // Routes
+router.get("/profile", bearerCheck, getProfile);
 router.post("/signup", checkUser, signup);
 router.post("/signIn", login);
 router.get("/user", allUser);
